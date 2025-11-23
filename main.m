@@ -33,14 +33,14 @@ i_total=zeros(size(x2));
 % 进行泵浦传播
 i = crystal.Propagation(pump_1,x2,y2,0);
 i_total = i_total + i;
-% i = crystal.Propagation(pump_2,x2,y2,72);
-% i_total = i_total + i;
-% i = crystal.Propagation(pump_3,x2,y2,144);
-% i_total = i_total + i;
-% i = crystal.Propagation(pump_4,x2,y2,216);
-% i_total = i_total + i;
-% i = crystal.Propagation(pump_5,x2,y2,288);
-% i_total = i_total + i;
+i = crystal.Propagation(pump_2,x2,y2,72);
+i_total = i_total + i;
+i = crystal.Propagation(pump_3,x2,y2,144);
+i_total = i_total + i;
+i = crystal.Propagation(pump_4,x2,y2,216);
+i_total = i_total + i;
+i = crystal.Propagation(pump_5,x2,y2,288);
+i_total = i_total + i;
 
 % 对强度进行归一化
 i_total=real(i_total/max(max(i_total)));
