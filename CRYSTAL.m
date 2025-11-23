@@ -7,8 +7,8 @@ classdef CRYSTAL < dynamicprops
 
     methods
         function Init(obj, r, alpha)
-            obj.r = r;
-            obj.alpha = alpha;
+            obj.r = r*1e-3;
+            obj.alpha = alpha*100;
         end
 
         function I = Propagation(obj, pump, x2,y2,theta)
