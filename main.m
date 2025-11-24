@@ -43,7 +43,7 @@ i = crystal.Propagation(pump_5,x2,y2,288);
 i_total = i_total + i;
 
 % 对强度进行归一化
-i_total=real(i_total/max(max(i_total)));
+i_total=real(i_total);
 
 % 绘制图像
 figure(1);
