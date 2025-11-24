@@ -1,7 +1,7 @@
 classdef CRYSTAL < dynamicprops
     properties
         % 基本参数
-        r = 0;                 %定义增益介质的长度（m）
+        r = 0;                 %定义增益介质的半径（m）
         alpha = 0;               %定义增益介质吸收率 (m^-1)
     end
 
