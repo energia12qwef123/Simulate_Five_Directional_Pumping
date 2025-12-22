@@ -23,7 +23,6 @@ pump_5.Init(50,808,300);
 crystal = CRYSTAL;
 crystal.Init(1.5,3);
 
-
 % 设置绘图网络
 x=linspace(-crystal.r,crystal.r,2500);
 y=linspace(-crystal.r,crystal.r,2500);
@@ -45,48 +44,83 @@ i_total = i_total + i;
 % 对强度进行归一化
 i_total=real(i_total);
 
-% 绘制图像
+% 创建圆形掩码（只显示晶体区域）
+r_mask = sqrt(x2.^2 + y2.^2) <= crystal.r;
+i_total_masked = i_total;
+i_total_masked(~r_mask) = NaN;
+
+% 绘制图像 - 只显示晶体区域
 figure(1);
-surf(x,y,i_total);
+surf(x,y,i_total_masked);
 colorbar;
 shading interp;
+colormap(jet);
 hold on;
 xlabel('x方向距离 (m)');
 ylabel('y方向距离 (m)');
 zlabel('归一化强度 I');
-title('X-Y 五方向泵浦传播');
+title('X-Y 五方向泵浦传播 (晶体区域)');
 view(0,90);
+
 figure(2);
-surf(x,y,i_total);
+surf(x,y,i_total_masked);
 shading interp;
+colormap(jet);
 hold on;
 xlabel('x方向距离 (m)');
 ylabel('y方向距离 (m)');
 zlabel('归一化强度 I');
-title('X-I 五方向泵浦传播');
+title('X-I 五方向泵浦传播 (晶体区域)');
 view(0,0);
+
 figure(3);
-surf(x,y,i_total);
+surf(x,y,i_total_masked);
 shading interp;
+colormap(jet);
 hold on;
 xlabel('x方向距离 (m)');
 ylabel('y方向距离 (m)');
 zlabel('归一化强度 I');
-title('Y-I 五方向泵浦传播');
+title('Y-I 五方向泵浦传播 (晶体区域)');
 view(90,0);
+
 figure(4);
-surf(x,y,i_total);
+surf(x,y,i_total_masked);
 colorbar;
 shading interp;
+colormap(jet);
 hold on;
 xlabel('x方向距离 (m)');
 ylabel('y方向距离 (m)');
 zlabel('归一化强度 I');
-title('X-Y-I 五方向泵浦传播');
+title('X-Y-I 五方向泵浦传播 (晶体区域)');
+
 figure(5);
-contour(x,y,i_total,30);
+contour(x,y,i_total_masked,30);
+colormap(jet);
 colorbar;
 xlabel('x方向距离 (m)');
 ylabel('y方向距离 (m)');
+title('X-Y 五方向泵浦传播等强度线 (晶体区域)');
+axis equal;
+
+figure(6);
+contour3(x, y, i_total_masked, 30);
+colorbar;
+colormap(jet);
+xlabel('x方向距离 (m)');
+ylabel('y方向距离 (m)');
 zlabel('归一化强度 I');
-title('X-Y 五方向泵浦传播等强度线');
+title('X-Y 五方向泵浦传播等强度线 (晶体区域)');
+grid on;
+view(90,0);
+
+% 对于Y方向分布图，只绘制晶体范围内的数据
+y_crystal = y(abs(y) <= crystal.r);
+i_crystal = i_total(1250, abs(y) <= crystal.r);
+figure(7);
+plot(y_crystal, i_crystal);
+xlabel('y方向距离 (m)');
+ylabel('归一化强度 I');
+title('Y方向归一化强度分布 (晶体区域)');
+grid on;
